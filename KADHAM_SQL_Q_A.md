@@ -344,4 +344,90 @@ DELETE FROM Student WHERE StudentID = 101;
 
 ---
 
-Let me know if you'd like to include rollback examples or transaction control for safer deletions!
+## 🔄 Transaction Control Language (TCL)
+
+**TCL** helps you control how changes are saved or undone in a database. It’s used when you make changes using DML commands like `INSERT`, `UPDATE`, or `DELETE`.
+
+Think of a transaction like a “bundle of changes.” You can either save all the changes together or cancel them if something goes wrong.
+
+---
+
+### 🧩 Why TCL Is Important
+
+- ✅ Keeps your data safe and consistent
+- ✅ Lets you undo mistakes before saving
+- ✅ Makes sure all related changes happen together
+- ✅ Prevents half-done updates
+
+---
+
+### 🔧 Common TCL Commands
+
+| Command     | What It Does                                  |
+|-------------|-----------------------------------------------|
+| `BEGIN`     | Starts a transaction                          |
+| `COMMIT`    | Saves all changes made in the transaction     |
+| `ROLLBACK`  | Cancels all changes made since `BEGIN`        |
+| `SAVEPOINT` | Sets a point you can roll back to later       |
+
+---
+
+## 🧪 Simple Examples Using University Tables
+
+### 🔹 Example 1: Insert Student and Address Together
+
+```sql
+BEGIN;
+
+INSERT INTO Student (StudentID, FirstName, LastName, DepartmentID)
+VALUES (201, 'Gana', 'Rao', 1);
+
+INSERT INTO Address (AddressID, StudentID, Street, City, State, ZipCode)
+VALUES (301, 201, '123 Main St', 'Bobbili', 'AP', '535558');
+
+COMMIT;
+-- ✅ Both records are saved together
+```
+
+### 🔹 Example 2: Rollback on Error
+
+```sql
+BEGIN;
+
+INSERT INTO Student (StudentID, FirstName, LastName, DepartmentID)
+VALUES (202, 'Meena', 'Kumari', 99);  -- ❌ DepartmentID 99 doesn't exist
+
+INSERT INTO Address (AddressID, StudentID, Street, City, State, ZipCode)
+VALUES (302, 202, '456 Elm St', 'Vizag', 'AP', '530001');
+
+ROLLBACK;
+-- ❌ All changes are canceled because of the error
+```
+
+### 🔹 Example 3: Using SAVEPOINT
+
+```sql
+BEGIN;
+
+INSERT INTO Student VALUES (203, 'Raj', 'Verma', 1);
+SAVEPOINT AfterStudent;
+
+INSERT INTO Address VALUES (303, 203, '789 Lotus St', 'Vizianagaram', 'AP', '535002');
+ROLLBACK TO AfterStudent;
+
+COMMIT;
+-- ✅ Student is saved, Address is not
+```
+
+---
+
+## 🧩 Summary
+
+| TCL Command | Use It When You Want To...                  |
+|-------------|---------------------------------------------|
+| `BEGIN`     | Start a group of changes                    |
+| `COMMIT`    | Save all changes permanently                |
+| `ROLLBACK`  | Undo all changes if something goes wrong    |
+| `SAVEPOINT` | Undo part of the changes, not everything    |
+
+---
