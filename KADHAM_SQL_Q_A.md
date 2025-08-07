@@ -431,3 +431,64 @@ COMMIT;
 | `SAVEPOINT` | Undo part of the changes, not everything    |
 
 ---
+
+## 🔐 Data Control Language (DCL)
+
+**DCL** is used to control who can access or change data in a database. It helps database administrators manage permissions so that only authorized users can view or modify sensitive information.
+
+---
+
+### 🧩 Why DCL Is Important
+
+- ✅ Protects sensitive data from unauthorized access
+- ✅ Ensures only trusted users can make changes
+- ✅ Helps manage user roles and responsibilities
+- ✅ Supports secure collaboration in multi-user environments
+
+---
+
+### 🔧 Common DCL Commands
+
+| Command   | What It Does                                 |
+|-----------|----------------------------------------------|
+| `GRANT`   | Gives permission to a user                   |
+| `REVOKE`  | Takes away permission from a user            |
+
+---
+
+## 🧪 Simple Examples Using University Tables
+
+### 🔹 Example 1: Grant SELECT Permission
+
+```sql
+GRANT SELECT ON Student TO user1;
+GRANT SELECT ON Department TO user1;
+GRANT SELECT ON Address TO user1;
+-- ✅ user1 can now view data from these tables
+```
+
+### 🔹 Example 2: Grant INSERT and UPDATE Permission
+
+```sql
+GRANT INSERT, UPDATE ON Student TO user2;
+-- ✅ user2 can add and modify student records
+```
+
+### 🔹 Example 3: Revoke Permission
+
+```sql
+REVOKE SELECT ON Address FROM user1;
+-- ❌ user1 can no longer view address data
+```
+
+---
+
+## 🧩 Summary
+
+| DCL Command | Use It When You Want To...                     |
+|-------------|------------------------------------------------|
+| `GRANT`     | Allow a user to view or change data            |
+| `REVOKE`    | Remove a user’s access to certain data         |
+| Benefit     | Keeps your database secure and well-managed    |
+
+---
