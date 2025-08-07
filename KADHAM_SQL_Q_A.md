@@ -253,3 +253,95 @@ DELETE FROM Student WHERE StudentID = 101;
 | Delete linked data   | Allowed                | Blocked by constraints |
 
 ---
+
+## 🗑️ Deleting Data After Adding Primary and Foreign Keys
+
+Once **Primary Key** and **Foreign Key** constraints are added to your tables, deletion operations must respect **referential integrity**. This means you cannot delete a record if it’s referenced by another table.
+
+---
+
+### 🔐 Constraints Recap
+
+- **Primary Key**: Uniquely identifies each record in a table.
+- **Foreign Key**: Links one table to another, enforcing valid relationships.
+
+---
+
+### 🧪 Example Setup
+
+```sql
+-- Add Primary Keys
+ALTER TABLE Student ADD PRIMARY KEY (StudentID);
+ALTER TABLE Department ADD PRIMARY KEY (DepartmentID);
+ALTER TABLE Address ADD PRIMARY KEY (AddressID);
+
+-- Add Foreign Keys
+ALTER TABLE Student ADD FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID);
+ALTER TABLE Address ADD FOREIGN KEY (StudentID) REFERENCES Student(StudentID);
+```
+
+---
+
+### ❌ Attempt to Delete a Student with Linked Address
+
+```sql
+DELETE FROM Student WHERE StudentID = 101;
+-- ❌ ERROR: Cannot delete or update a parent row: a foreign key constraint fails
+```
+
+The `Address` table references `StudentID`, so deleting the student would break the relationship.
+
+---
+
+### 🧪 Without Cascading
+
+If `ON DELETE CASCADE` is not defined, the same delete operation would fail:
+
+```sql
+DELETE FROM Student WHERE StudentID = 101;
+-- ❌ ERROR: Cannot delete or update a parent row due to foreign key constraint
+```
+
+You would need to manually delete the child record first:
+
+```sql
+DELETE FROM Address WHERE StudentID = 101;
+DELETE FROM Student WHERE StudentID = 101;
+```
+
+---
+
+### ✅ Safe Deletion with Cascading (Optional)
+
+If you want deletions to automatically remove related records, you can define the foreign key with `ON DELETE CASCADE`:
+
+```sql
+ALTER TABLE Address
+DROP FOREIGN KEY fk_student;
+
+ALTER TABLE Address
+ADD CONSTRAINT fk_student
+FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
+ON DELETE CASCADE;
+```
+
+Now this will work:
+
+```sql
+DELETE FROM Student WHERE StudentID = 101;
+-- ✅ Automatically deletes related address records
+```
+
+---
+
+### 🧩 Best Practices
+
+| Action                      | Recommendation                          |
+|----------------------------|------------------------------------------|
+| Delete parent with children | Use `ON DELETE CASCADE` or delete child first |
+| Maintain data integrity     | Always define foreign keys               |
+| Avoid accidental deletion   | Use `WHERE` clause and test queries      |
+
+---
+
+Let me know if you'd like to include rollback examples or transaction control for safer deletions!
