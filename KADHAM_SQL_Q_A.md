@@ -1,4 +1,4 @@
-# 📘 SQL Tutorial README
+# 📘 SQL Tutorial
 
 ## 📌 Overview
 This tutorial introduces the core components of SQL (Structured Query Language), categorized into five key areas:
