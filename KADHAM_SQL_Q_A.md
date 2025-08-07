@@ -108,3 +108,148 @@ MODIFY StudentID INT NOT NULL;
 
 ---
 
+
+## 📘 Data Manipulation Language (DML)
+
+**DML** is a subset of SQL used to manage data in relational databases. It includes commands to **insert**, **update**, and **delete** records.
+
+---
+
+## 🧑‍🎓 Tables Overview
+
+```sql
+-- Student Table
+CREATE TABLE Student (
+    StudentID INT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Gender CHAR(1),
+    DateOfBirth DATE,
+    Email VARCHAR(100),
+    DepartmentID INT
+);
+
+-- Department Table
+CREATE TABLE Department (
+    DepartmentID INT,
+    DepartmentName VARCHAR(100),
+    HeadOfDepartment VARCHAR(100)
+);
+
+-- Address Table
+CREATE TABLE Address (
+    AddressID INT,
+    StudentID INT,
+    Street VARCHAR(100),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    ZipCode VARCHAR(10)
+);
+```
+
+---
+
+## ✍️ DML Examples
+
+### 🔹 INSERT Records
+
+#### Student Table
+```sql
+-- Full insert
+INSERT INTO Student VALUES (101, 'Gana', 'Rao', 'M', '2003-05-12', 'gana.rao@example.com', 1);
+INSERT INTO Student VALUES (102, 'Meena', 'Kumari', 'F', '2002-08-20', 'meena.k@example.com', 2);
+
+-- Partial insert
+INSERT INTO Student (StudentID, FirstName, LastName) VALUES (103, 'Raj', 'Verma');
+```
+
+#### Department Table
+```sql
+INSERT INTO Department VALUES (1, 'Computer Science', 'Dr. Sharma');
+INSERT INTO Department VALUES (2, 'Mathematics', 'Dr. Iyer');
+```
+
+#### Address Table
+```sql
+INSERT INTO Address VALUES (201, 101, '123 Main St', 'Bobbili', 'AP', '535558');
+INSERT INTO Address VALUES (202, 102, '456 Elm St', 'Vizianagaram', 'AP', '535002');
+```
+
+---
+
+### ✏️ UPDATE Records
+
+```sql
+-- Safe update with WHERE
+UPDATE Student SET Email = 'gana.new@example.com' WHERE StudentID = 101;
+
+-- Risky update without WHERE
+UPDATE Student SET Email = 'updated@example.com';
+-- ❌ Updates email for ALL students!
+```
+
+---
+
+### ❌ DELETE Records
+
+```sql
+-- Safe delete
+DELETE FROM Address WHERE AddressID = 201;
+
+-- Risky delete
+DELETE FROM Address;
+-- ❌ Deletes ALL addresses!
+```
+
+---
+
+## 🔐 Adding Primary and Foreign Keys
+
+### ➕ ALTER TABLE to Add Keys
+
+```sql
+-- Add Primary Keys
+ALTER TABLE Student ADD PRIMARY KEY (StudentID);
+ALTER TABLE Department ADD PRIMARY KEY (DepartmentID);
+ALTER TABLE Address ADD PRIMARY KEY (AddressID);
+
+-- Add Foreign Keys
+ALTER TABLE Student ADD FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID);
+ALTER TABLE Address ADD FOREIGN KEY (StudentID) REFERENCES Student(StudentID);
+```
+
+---
+
+## ⚠️ Behavior Before vs After Keys
+
+### 🔄 Before Adding Keys
+
+```sql
+-- Insert with invalid foreign key (no error)
+INSERT INTO Student VALUES (104, 'Fake', 'User', 'M', '2000-01-01', 'fake@example.com', 99);
+-- Insert address for non-existent student
+INSERT INTO Address VALUES (203, 999, 'Ghost St', 'Nowhere', 'NA', '000000');
+```
+
+### 🔒 After Adding Keys
+
+```sql
+-- Insert with invalid foreign key (fails)
+INSERT INTO Student VALUES (105, 'Ghost', 'User', 'F', '2001-01-01', 'ghost@example.com', 99);
+-- ❌ Error: DepartmentID 99 does not exist
+
+-- Delete student with linked address (fails)
+DELETE FROM Student WHERE StudentID = 101;
+-- ❌ Error: Cannot delete due to foreign key constraint in Address
+```
+
+---
+
+## 🧩 Summary
+
+| Feature              | Before Keys           | After Keys             |
+|----------------------|------------------------|-------------------------|
+| Insert invalid data  | Allowed                | Blocked by constraints |
+| Delete linked data   | Allowed                | Blocked by constraints |
+
+---
