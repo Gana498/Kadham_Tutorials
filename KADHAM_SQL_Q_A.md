@@ -492,3 +492,106 @@ REVOKE SELECT ON Address FROM user1;
 | Benefit     | Keeps your database secure and well-managed    |
 
 ---
+
+# 🧮 SQL Aggregate Functions
+
+Aggregate functions perform calculations on multiple rows of a table and return a single value. They are commonly used with `GROUP BY` to summarize data.
+
+## 📌 List of Aggregate Functions
+
+| Function     | Description                                      |
+|--------------|--------------------------------------------------|
+| `COUNT()`    | Returns the number of rows                       |
+| `SUM()`      | Returns the total sum of a numeric column        |
+| `AVG()`      | Returns the average value of a numeric column    |
+| `MIN()`      | Returns the minimum value                        |
+| `MAX()`      | Returns the maximum value                        |
+| `STDDEV()`   | Returns the standard deviation                   |
+| `VARIANCE()` | Returns the variance                             |
+| `LISTAGG()`  | Concatenates values into a single string         |
+
+---
+
+## 🧾 Examples Without `GROUP BY`
+
+These examples return a single result for the entire table.
+
+```sql
+-- Count total employees
+SELECT COUNT(*) FROM employees;
+
+-- Sum of all salaries
+SELECT SUM(salary) FROM employees;
+
+-- Average salary
+SELECT AVG(salary) FROM employees;
+
+-- Minimum salary
+SELECT MIN(salary) FROM employees;
+
+-- Maximum salary
+SELECT MAX(salary) FROM employees;
+
+-- Standard deviation of salaries
+SELECT STDDEV(salary) FROM employees;
+
+-- Variance of salaries
+SELECT VARIANCE(salary) FROM employees;
+
+-- Concatenate all employee names
+SELECT LISTAGG(first_name, ', ') WITHIN GROUP (ORDER BY first_name) AS all_names
+FROM employees;
+```
+
+---
+
+## 📊 Examples With `GROUP BY`
+
+These examples return one result per group.
+
+```sql
+-- Count employees per department
+SELECT department_id, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department_id;
+
+-- Total salary per department
+SELECT department_id, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department_id;
+
+-- Average salary per job title
+SELECT job_id, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY job_id;
+
+-- Minimum and maximum salary per department
+SELECT department_id, MIN(salary) AS min_salary, MAX(salary) AS max_salary
+FROM employees
+GROUP BY department_id;
+
+-- Standard deviation of salary per job
+SELECT job_id, STDDEV(salary) AS salary_stddev
+FROM employees
+GROUP BY job_id;
+
+-- Variance of salary per department
+SELECT department_id, VARIANCE(salary) AS salary_variance
+FROM employees
+GROUP BY department_id;
+
+-- List of employee names per department
+SELECT department_id,
+       LISTAGG(first_name, ', ') WITHIN GROUP (ORDER BY first_name) AS names
+FROM employees
+GROUP BY department_id;
+```
+
+---
+
+## 🧠 Notes
+
+- Aggregate functions ignore `NULL` values except for `COUNT(*)`.
+- You can use `HAVING` to filter groups after aggregation.
+
+---
