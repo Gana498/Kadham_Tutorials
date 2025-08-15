@@ -1,6 +1,6 @@
 # Kadham English
 
-## IELTS Nouns Quick Summary
+## Nouns Quick Summary
 
 ---
 
@@ -62,5 +62,48 @@ Show ownership or belonging, usually formed by adding:
 
 Name a group of people, animals, or things considered as one unit.  
 *Examples:* team, family, flock, committee
+
+---
+
+## Verbs Summary
+
+---
+
+### Types of Verbs
+
+#### 1. Action Verbs
+- **Definition:** Show what someone or something *does* (actions).
+- **Purpose:** Describe physical or mental activities.
+- **Examples:** run, eat, write, sing
+- **Example Sentence:** She *runs* every morning.
+
+---
+
+#### 2. Linking Verbs
+- **Definition:** Connect the subject to more information about the subject; show a *state* or condition rather than an action.
+- **Purpose:** Link the subject to a description or state of being.
+- **Examples:** am, is, are, was, were, become, seem, feel, taste, smell
+- **Example Sentence:** He *is* happy. (“is” links the subject “He” to the description “happy.”)
+
+---
+
+#### 3. Helping Verbs (Auxiliary Verbs)
+- **Definition:** Help the main verb show tense, mood, or voice; they cannot stand alone as the main verb.
+- **Purpose:** Assist the main verb in forming verb phrases.
+- **Examples:** be (am, is, are, was, were), have (has, had), do (does, did), modal verbs (can, will, should, may)
+- **Example Sentence:** She *is running* fast. (“is” helps the main verb “running,” forming present continuous tense.)
+
+---
+
+### Other Verb Categories
+
+- **State Verbs:** Describe a condition or situation (often linking verbs or stative verbs).  
+  *Example:* love, believe, own, seem
+
+- **Occurrence Verbs:** Indicate something happening or becoming.  
+  *Example:* happen, become, develop
+
+---
+
 ```
 
