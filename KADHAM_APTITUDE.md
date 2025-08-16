@@ -14,4 +14,4 @@
 #### 2. Check if sum/product of outer side number is equal to n×center number.
 #### 3. Check if sum and product of opposite outer side number is equal to n×center number.
 #### 4. Check if the numbers are following symmetry like sum/product of first n number equal to sum/product of remaining numbers.
-#### 5. 
+#### 5. Check if the numbers are in a pattern of multiple, sum, average plus constant.
