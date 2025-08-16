@@ -15,3 +15,4 @@
 #### 3. Check if sum and product of opposite outer side number is equal to n×center number.
 #### 4. Check if the numbers are following symmetry like sum/product of first n number equal to sum/product of remaining numbers.
 #### 5. Check if the numbers are in a pattern of multiple, sum, average plus constant.
+#### 6. Check if the numbers are in pattern of sum or product of constant and sum of squares or cubes. 
